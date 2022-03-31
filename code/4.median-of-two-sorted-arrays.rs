@@ -1,9 +1,5 @@
 impl Solution {
     pub fn find_median_sorted_arrays(mut nums1: Vec<i32>, mut nums2: Vec<i32>) -> f64 {
-        // {1, 2}
-		// {3, 4, 5, 6}
-		// 3.5
-
 		let mut n: Vec<i32> = Vec::new();
 		n.append(&mut nums1);
 		n.append(&mut nums2);
@@ -20,7 +16,5 @@ impl Solution {
 				return n[odd/2] as f64
 			}
 		}
-		// println!("{}", 7/2);
-		// return 0.0
     }
 }
