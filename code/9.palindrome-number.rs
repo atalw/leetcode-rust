@@ -1,5 +1,19 @@
 impl Solution {
     pub fn is_palindrome(x: i32) -> bool {
+		if x < 0 || (x % 10 == 0  && x != 0) { return false };
+		if x >= 0 && x < 10 { return true };
+
+		let mut rever = 0;
+		let mut x = x;
+
+		while x > rever {
+			rever = rever * 10 + x % 10;
+			x /= 10;
+		}
+		x == rever || x == rever / 10
+    }
+
+    pub fn is_palindrome_from_string(x: i32) -> bool {
 		if x < 0 { return false };
 		if x >= 0 && x < 10 { return true };
 
