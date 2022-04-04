@@ -19,26 +19,23 @@ impl Solution {
 
 		if nums.len() < 3 { return 0 } // should never happen
 
-		'outer: while i < nums.len() - 2 {
+		while i < nums.len() - 2 {
 			j = i + 1;	
-			while j < nums.len() {
-				k = j + 1 ;
-				let partial_sum = nums[i] + nums[j];
-				// if partial_sum > target { break 'outer }
-				while k < nums.len() {
-					let res: i32 = partial_sum + nums[k];
-					match sum {
-						Some(s) => {
-							let diff = (target - res).abs().min((target - s).abs());
-							sum = if (target - res).abs() == diff { Some(res) } else { Some(s) };
-						},
-						None => {
-							sum = Some(res);
-						}
+			k = nums.len() - 1;
+			while j < k {
+				let res: i32 = nums[i] + nums[j] + nums[k];
+
+				match sum {
+					Some(s) => {
+						let diff = (target - res).abs().min((target - s).abs());
+						sum = if (target - res).abs() == diff { Some(res) } else { Some(s) };
+					},
+					None => {
+						sum = Some(res);
 					}
-					k += 1;
 				}
-				j += 1;
+
+				if res < target { j += 1 } else { k -= 1 }
 			}
 			i += 1;
 		}
