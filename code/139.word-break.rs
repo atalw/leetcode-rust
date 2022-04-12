@@ -15,6 +15,10 @@ impl Solution {
 					_ => {}
 					
 				}
+				match dp.get(&i) {
+					Some(&val) if val => break,
+					_ => {}
+				}
 			}
 		}
 
