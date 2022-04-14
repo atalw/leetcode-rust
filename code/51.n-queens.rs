@@ -6,17 +6,6 @@ struct Position {
 	y: usize 
 }
 
-// impl Sub for Position {
-//     type Output = Self;
-
-//     fn sub(self, rhs: Rhs) -> Self::Output {
-//         Self { 
-//             x: self.x - rhs.x, 
-//             y: self.y - rhs.y,
-//         }
-//     }
-// }
-
 impl Solution {
     pub fn solve_n_queens(n: i32) -> Vec<Vec<String>> {
 		// let board: Vec<Vec<usize>> = Vec::with_capacity(n as usize);
@@ -75,23 +64,18 @@ impl Solution {
 		// println!("board: {:?}", board);
 		// Solution::indent(chosen_position.y);
 		// println!("open positions: {:?}", open_positions);
-		// Solution::indent(chosen_position.y);
-		// println!("y: {:?}, board.len() {}", chosen_position.y, board.len());
+
+		// last row
 		if chosen_position.y == board.len() - 1 { 
 			res.push(board.to_vec());
 			return Some(res)
-		} // last row
+		} 
 		if open_positions.is_empty() { return Some(res) }
 
-
-		// let mut res: Vec<Vec<Vec<usize>>> = Vec::new();
 		for i in 0..board.len() {
 			// choose
 			let p = Position { x: i, y: chosen_position.y + 1 };
-			if !open_positions.contains(&p) { 
-				// println!("not an open position: {:?}", p);
-				continue 
-			}
+			if !open_positions.contains(&p) { continue }
 
 			board[p.y][p.x] = 1;
 
@@ -99,11 +83,6 @@ impl Solution {
 			let temp_open_positions = Solution::get_open_positions(board);
 			match Solution::solve_n_queens_internal(board, temp_open_positions, p, res.clone()) {
 				Some(r) => { 
-					// board = r.last().unwrap();
-					// for solution in r {
-					//     res.push(solution);
-					// }
-
 					res = r;
 				}
 				None => return None
@@ -207,23 +186,3 @@ impl Solution {
 		positions
 	}
 }
-
-// [["Q....","..Q..","....Q",".Q...","...Q."],matches
-// ["Q....","...Q.",".Q...","....Q","..Q.."], matches
-// ["..Q..","Q....","...Q.",".Q...","....Q"],
-// ["..Q..","....Q",".Q...","...Q.","Q...."],
-// ["....Q",".Q...","...Q.","Q....","..Q.."],
-// ["....Q","..Q..","Q....","...Q.",".Q..."]]
-//
-// [["Q....","..Q..","....Q",".Q...","...Q."],
-// ["Q....","...Q.",".Q...","....Q","..Q.."],
-// [".Q...","...Q.","Q....","..Q..","....Q"],
-// [".Q...","....Q","..Q..","Q....","...Q."],
-// ["..Q..","Q....","...Q.",".Q...","....Q"],
-// ["..Q..","....Q",".Q...","...Q.","Q...."],
-// ["...Q.","Q....","..Q..","....Q",".Q..."],
-// ["...Q.",".Q...","....Q","..Q..","Q...."],
-// ["....Q",".Q...","...Q.","Q....","..Q.."],
-// ["....Q","..Q..","Q....","...Q.",".Q..."]]
-//
-//
